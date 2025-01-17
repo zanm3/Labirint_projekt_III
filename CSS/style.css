@@ -10,14 +10,19 @@ body{
     background-image: url("../img/background.jpg");
     background-repeat: no-repeat;
 }
+@font-face {
+    font-family: "New Roman Italic";
+    src: url("../fonts/texgyretermes-italic.otf");
+}
 header{
     height: 300px;
     display: flex;
     justify-content: center;
 }
 #title{
-    font-size: 2.5rem;
+    font-size: 2.7rem;
     color: whitesmoke;
+    font-family: "New Roman Italic";
 }
 #labirint{
     position: fixed;
