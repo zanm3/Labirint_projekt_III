@@ -9,6 +9,7 @@ html, body{
 body{
     background-image: url("../img/background.jpg");
     background-repeat: no-repeat;
+    display: grid;
 }
 @font-face {
     font-family: "New Roman Italic";
