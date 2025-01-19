@@ -10,23 +10,26 @@ body{
     background-image: url("../img/background.jpg");
     background-repeat: no-repeat;
     display: grid;
+    grid-template-rows: repeat(3,1fr);
+    grid-template-columns: repeat(3,1fr);
 }
 @font-face {
     font-family: "New Roman Italic";
     src: url("../fonts/texgyretermes-italic.otf");
 }
-header{
+#glava{
     height: 300px;
-    display: flex;
-    justify-content: center;
 }
 #title{
     font-size: 2.7rem;
     color: whitesmoke;
     font-family: "New Roman Italic";
+    grid-row: 1;
+    grid-column: 2;
+    text-align: center;
 }
 #labirint{
-    position: fixed;
-    top: 50%;
-    right: 50%;
+    grid-row: 3;
+    grid-column: 2;
+    text-align: center;
 }
