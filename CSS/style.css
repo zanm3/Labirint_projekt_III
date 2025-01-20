@@ -7,8 +7,7 @@ html, body{
     height: 100%;
 }
 body{
-    background-image: url("../img/background.jpg");
-    background-repeat: no-repeat;
+    background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);;
     display: grid;
     grid-template-rows: repeat(3,1fr);
     grid-template-columns: repeat(3,1fr);
@@ -18,7 +17,8 @@ body{
     src: url("../fonts/texgyretermes-italic.otf");
 }
 #glava{
-    height: 300px;
+    grid-row: 1;
+    grid-column: 2;
 }
 #title{
     font-size: 2.7rem;
@@ -28,8 +28,11 @@ body{
     grid-column: 2;
     text-align: center;
 }
-#labirint{
-    grid-row: 3;
+#telo{
+    width: 100%;
+    height: 484px;
+    grid-row: 2;
     grid-column: 2;
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
