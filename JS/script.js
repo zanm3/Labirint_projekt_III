@@ -14,6 +14,8 @@ const coordinates = [
 ];
 
 const svg = document.getElementById();
-const polyline = document.createElement('polyline');
+
+
+
 
 
