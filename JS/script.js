@@ -497,7 +497,7 @@ function drawSolution() {
         if (currentIndex == coordinates.length) {
             clearInterval(interval);
         }
-    }, 50) // narišemo vsakih 200 milisekund
+    }, 200) // narišemo vsakih 200 milisekund
 }
 function clearSolution() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
