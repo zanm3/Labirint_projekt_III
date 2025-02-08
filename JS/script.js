@@ -514,3 +514,5 @@ draw.addEventListener("click", function () { // ko kliknemo gumb, se sproži fun
 clear.addEventListener("click", function () { // ko kliknemo gumb, se sproži funkcija drawSolution
     clearSolution();
 });
+
+const spaceship = new Image();

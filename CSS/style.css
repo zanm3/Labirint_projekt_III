@@ -12,6 +12,8 @@ body{
     display: grid;
     grid-template-rows: repeat(3,1fr);
     grid-template-columns: repeat(3,1fr);
+    overflow: hidden !important; /* Disable body scroll while modal is open */
+    position: relative; /* Make sure the body doesn't shift */
 }
 @font-face {
     font-family: "New Roman Italic";
@@ -83,6 +85,7 @@ button{
     opacity: 0.9;
     position: relative;
     left: 10%;
+    bottom: 1.5%;
     padding: 5px;
     display: flexbox;
     text-align: center;
@@ -96,4 +99,8 @@ button{
 }
 #navodila{
     height: max-content;
+    padding: 5px;
+}
+p{
+    font-family: 'Times New Roman', Times, serif;
 }
