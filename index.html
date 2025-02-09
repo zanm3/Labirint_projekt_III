@@ -11,25 +11,22 @@
 </head>
 
 <body>
-  <section id="glava">
-    <h1 id="title">Galaxy Odyssey</h1>
-  </section>
   <section id="logo" onclick="showInfo()"></section>
   <section id="telo">
-    <canvas id="labirint_canvas" width="484" height="484"></canvas>
+    <canvas id="labirint_canvas" width="684" height="684"></canvas>
   </section>
   <section id="container">
     <section id="navodila">
-      <p>Figura potuje sama. Za ponastavitev klniknite gumb "reset"</p>
+      <h4 id="title">Galaxy Odyssey</h4>
+      <p>Figurico poženete s pritiskom na gumb "GO!". Figura potuje sama. Za ponastavitev klniknite gumb "reset"</p>
     </section>
     <section id="gumba">
-    <section id="gumb1"><button type="button" onclick="drawSolution()" id="click1">Draw</button></section>
-    <section id="gumb2"><button type="button" onclick="clearSolution()" id="click2">Clear</button></section>
+    <section id="gumb1"><button type="button" onclick="drawSolution()" id="click1">GO!</button></section>
+    <section id="gumb2"><button type="button" onclick="clearSolution()" id="click2">Reset</button></section>
   </section>
   </section>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="JS/info.js"></script>
   <script src="JS/script.js"></script>
 </body>
-
 </html>

@@ -442,14 +442,15 @@ const mazeCoordinates = [
 
 const canvas = document.getElementById("labirint_canvas");
 const ctx = canvas.getContext("2d");
+const scale = 684 / 484;
 function generateMaze() {
     ctx.strokeStyle = "#000000";
     ctx.lineWidth = 2;
     ctx.beginPath();
     for (let i = 0; i < mazeCoordinates.length; i++) {
         const { x1, y1, x2, y2 } = mazeCoordinates[i];
-        ctx.moveTo(x1,y1);
-        ctx.lineTo(x2,y2);
+        ctx.moveTo(x1 * scale, y1 * scale);
+        ctx.lineTo(x2 * scale, y2 * scale);
     }
     ctx.stroke();
 }
@@ -477,19 +478,19 @@ function drawSolution() {
     const ctx = canvas.getContext("2d");
 
     ctx.strokeStyle = "#000000";
-    ctx.lineWidth = 4;
-    ctx.lineCap = "square";
-
+    ctx.lineWidth = 6;
+    ctx.lineCap = "round";
+    const scale = 684 / 484;
 
     let currentIndex = 0; // začnemo z animacijo risanja poti
     const interval = setInterval(() => {
         if (currentIndex > 0) {
-            const previousCoordinates = coordinates[currentIndex-1];
+            const previousCoordinates = coordinates[currentIndex - 1];
             const currentCoordinates = coordinates[currentIndex];
 
             ctx.beginPath();
-            ctx.moveTo(previousCoordinates[0],previousCoordinates[1]);
-            ctx.lineTo(currentCoordinates[0],currentCoordinates[1]);
+            ctx.moveTo(previousCoordinates[0] * scale, previousCoordinates[1] * scale);
+            ctx.lineTo(currentCoordinates[0] * scale, currentCoordinates[1] * scale);
             ctx.stroke();
         }
         currentIndex++; // gremo naprej
@@ -499,9 +500,19 @@ function drawSolution() {
         }
     }, 200) // narišemo vsakih 200 milisekund
 }
+const spaceship = new Image();
+spaceship.src = "../img/ladja.svg";
+
+function ladja() {
+    ctx.drawImage(spaceship, 315, 2, 24, 24);
+}
+spaceship.onload = function () {
+    ladja();
+}
 function clearSolution() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-    generateMaze(); // Redraw the maze
+    generateMaze();
+    spaceship.onload();
 }
 
 const draw = document.getElementById("click1");
@@ -514,5 +525,3 @@ draw.addEventListener("click", function () { // ko kliknemo gumb, se sproži fun
 clear.addEventListener("click", function () { // ko kliknemo gumb, se sproži funkcija drawSolution
     clearSolution();
 });
-
-const spaceship = new Image();
