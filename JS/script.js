@@ -543,5 +543,6 @@ clear.addEventListener("click", function () { // ko kliknemo gumb, se sproži fu
 function clearSolution() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
     generateMaze();
+    drawSolution();
     spaceman.onload();
 }
