@@ -456,35 +456,35 @@ function generateMaze() {
 }
 generateMaze();
 
-let x = 0; // Start at the first coordinate
-let y = 1; // The second part of the coordinate pair (Y value)
-let crta = 0; // Progress of drawing (from 0 to 1)
-let animating = true; // Control flag for animation
+let x = 0;
+let y = 1;
+let crta = 0;
+let animating;
 
 function drawSolution() {
     const coordinates = [
-        [234*scale, 2*scale], [234*scale, 10*scale], [218*scale, 10*scale], [218*scale, 26*scale], [186*scale, 26*scale], [186*scale, 10*scale], [138*scale, 10*scale], [138*scale, 42*scale], [106*scale, 42*scale], [106*scale, 26*scale],
-        [90*scale, 26*scale], [90*scale, 42*scale], [74*scale, 42*scale], [74*scale, 74*scale], [58*scale, 74*scale], [58*scale, 58*scale], [42*scale, 58*scale], [42*scale, 90*scale], [58*scale, 90*scale], [58*scale, 106*scale],
-        [42*scale, 106*scale], [42*scale, 122*scale], [10*scale, 122*scale], [10*scale, 138*scale], [26*scale, 138*scale], [26*scale, 154*scale], [58*scale, 154*scale], [58*scale, 122*scale], [90*scale, 122*scale],
-        [90*scale, 138*scale], [74*scale, 138*scale], [74*scale, 154*scale], [122*scale, 154*scale], [122*scale, 138*scale], [154*scale, 138*scale], [154*scale, 122*scale], [138*scale, 122*scale], [138*scale, 106*scale],
-        [106*scale, 106*scale], [106*scale, 90*scale], [122*scale, 90*scale], [122*scale, 74*scale], [138*scale, 74*scale], [138*scale, 58*scale], [154*scale, 58*scale], [154*scale, 90*scale], [170*scale, 90*scale],
-        [170*scale, 74*scale], [218*scale, 74*scale], [218*scale, 58*scale], [202*scale, 58*scale], [202*scale, 42*scale], [250*scale, 42*scale], [250*scale, 58*scale], [266*scale, 58*scale], [266*scale, 74*scale],
-        [282*scale, 74*scale], [282*scale, 42*scale], [298*scale, 42*scale], [298*scale, 58*scale], [314*scale, 58*scale], [314*scale, 74*scale], [298*scale, 74*scale], [298*scale, 90*scale], [314*scale, 90*scale],
-        [314*scale, 122*scale], [330*scale, 122*scale], [330*scale, 186*scale], [378*scale, 186*scale], [378*scale, 170*scale], [394*scale, 170*scale], [394*scale, 202*scale], [410*scale, 202*scale],
-        [410*scale, 234*scale], [394*scale, 234*scale], [394*scale, 250*scale], [378*scale, 250*scale], [378*scale, 234*scale], [362*scale, 234*scale], [362*scale, 266*scale], [378*scale, 266*scale],
-        [378*scale, 282*scale], [362*scale, 282*scale], [362*scale, 330*scale], [378*scale, 330*scale], [378*scale, 346*scale], [394*scale, 346*scale], [394*scale, 362*scale], [410*scale, 362*scale],
-        [410*scale, 346*scale], [426*scale, 346*scale], [426*scale, 394*scale], [442*scale, 394*scale], [442*scale, 410*scale], [346*scale, 410*scale], [346*scale, 474*scale], [282*scale, 474*scale],
-        [282*scale, 442*scale], [266*scale, 442*scale], [266*scale, 426*scale], [250*scale, 426*scale], [250*scale, 482*scale]
+        [234 * scale, 2 * scale], [234 * scale, 10 * scale], [218 * scale, 10 * scale], [218 * scale, 26 * scale], [186 * scale, 26 * scale], [186 * scale, 10 * scale], [138 * scale, 10 * scale], [138 * scale, 42 * scale], [106 * scale, 42 * scale], [106 * scale, 26 * scale],
+        [90 * scale, 26 * scale], [90 * scale, 42 * scale], [74 * scale, 42 * scale], [74 * scale, 74 * scale], [58 * scale, 74 * scale], [58 * scale, 58 * scale], [42 * scale, 58 * scale], [42 * scale, 90 * scale], [58 * scale, 90 * scale], [58 * scale, 106 * scale],
+        [42 * scale, 106 * scale], [42 * scale, 122 * scale], [10 * scale, 122 * scale], [10 * scale, 138 * scale], [26 * scale, 138 * scale], [26 * scale, 154 * scale], [58 * scale, 154 * scale], [58 * scale, 122 * scale], [90 * scale, 122 * scale],
+        [90 * scale, 138 * scale], [74 * scale, 138 * scale], [74 * scale, 154 * scale], [122 * scale, 154 * scale], [122 * scale, 138 * scale], [154 * scale, 138 * scale], [154 * scale, 122 * scale], [138 * scale, 122 * scale], [138 * scale, 106 * scale],
+        [106 * scale, 106 * scale], [106 * scale, 90 * scale], [122 * scale, 90 * scale], [122 * scale, 74 * scale], [138 * scale, 74 * scale], [138 * scale, 58 * scale], [154 * scale, 58 * scale], [154 * scale, 90 * scale], [170 * scale, 90 * scale],
+        [170 * scale, 74 * scale], [218 * scale, 74 * scale], [218 * scale, 58 * scale], [202 * scale, 58 * scale], [202 * scale, 42 * scale], [250 * scale, 42 * scale], [250 * scale, 58 * scale], [266 * scale, 58 * scale], [266 * scale, 74 * scale],
+        [282 * scale, 74 * scale], [282 * scale, 42 * scale], [298 * scale, 42 * scale], [298 * scale, 58 * scale], [314 * scale, 58 * scale], [314 * scale, 74 * scale], [298 * scale, 74 * scale], [298 * scale, 90 * scale], [314 * scale, 90 * scale],
+        [314 * scale, 122 * scale], [330 * scale, 122 * scale], [330 * scale, 186 * scale], [378 * scale, 186 * scale], [378 * scale, 170 * scale], [394 * scale, 170 * scale], [394 * scale, 202 * scale], [410 * scale, 202 * scale],
+        [410 * scale, 234 * scale], [394 * scale, 234 * scale], [394 * scale, 250 * scale], [378 * scale, 250 * scale], [378 * scale, 234 * scale], [362 * scale, 234 * scale], [362 * scale, 266 * scale], [378 * scale, 266 * scale],
+        [378 * scale, 282 * scale], [362 * scale, 282 * scale], [362 * scale, 330 * scale], [378 * scale, 330 * scale], [378 * scale, 346 * scale], [394 * scale, 346 * scale], [394 * scale, 362 * scale], [410 * scale, 362 * scale],
+        [410 * scale, 346 * scale], [426 * scale, 346 * scale], [426 * scale, 394 * scale], [442 * scale, 394 * scale], [442 * scale, 410 * scale], [346 * scale, 410 * scale], [346 * scale, 474 * scale], [282 * scale, 474 * scale],
+        [282 * scale, 442 * scale], [266 * scale, 442 * scale], [266 * scale, 426 * scale], [250 * scale, 426 * scale], [250 * scale, 482 * scale]
     ];
-
+    animating = true;
     const canvas = document.getElementById("labirint_canvas");
     const ctx = canvas.getContext("2d");
     ctx.strokeStyle = "#000000";
     ctx.lineWidth = 11;
+    ctx.lineCap = "round";
 
-    // Ensure we don't go out of bounds
     if (x < coordinates.length - 1) {
-        // Get the current coordinates and the next ones
+
         const startX = coordinates[x][0];
         const startY = coordinates[x][1];
         const endX = coordinates[x + 1][0];
@@ -492,7 +492,7 @@ function drawSolution() {
 
         const dolzinaCrte = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
 
-        crta += 10 / dolzinaCrte;
+        crta += 1 / dolzinaCrte;
 
         if (crta > 1) crta = 1;
 
@@ -507,12 +507,12 @@ function drawSolution() {
         ctx.closePath();
 
         // Draw a small square at the start point
-        // ctx.fillStyle = "rgb(127, 172, 255)";
+        // ctx.fillStyle = "rgb(255, 255, 255)";
         // ctx.fillRect(startX - ctx.lineWidth / 2, startY - ctx.lineWidth / 2, ctx.lineWidth, ctx.lineWidth);
 
         if (crta >= 1) {
-            x++; 
-            crta = 0; 
+            x++;
+            crta = 0;
         }
 
         requestAnimationFrame(drawSolution);
@@ -521,21 +521,15 @@ function drawSolution() {
     }
 }
 
-const spaceship = new Image();
-spaceship.src = "../img/ladja.svg";
+const spaceman = new Image();
+spaceman.src = "../img/astronaut.png";
 
-function ladja() {
-    ctx.drawImage(spaceship, 315, 2, 24, 24);
+function spaceMan() {
+    ctx.drawImage(spaceman, 226*scale, 2*scale, 26, 26);
 }
-spaceship.onload = function () {
-    ladja();
+spaceman.onload = function () {
+    spaceMan();
 }
-function clearSolution() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-    generateMaze();
-    spaceship.onload();
-}
-
 const draw = document.getElementById("click1");
 const clear = document.getElementById("click2");
 
@@ -546,3 +540,8 @@ draw.addEventListener("click", function () { // ko kliknemo gumb, se sproži fun
 clear.addEventListener("click", function () { // ko kliknemo gumb, se sproži funkcija drawSolution
     clearSolution();
 });
+function clearSolution() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+    generateMaze();
+    spaceman.onload();
+}
