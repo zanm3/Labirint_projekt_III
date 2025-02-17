@@ -479,7 +479,7 @@ function drawSolution() {
 
     const canvas = document.getElementById("labirint_canvas");
     const ctx = canvas.getContext("2d");
-    ctx.strokeStyle = "#FFFFFF";
+    ctx.strokeStyle = "#000000";
     ctx.lineWidth = 11;
 
     // Ensure we don't go out of bounds
@@ -490,16 +490,12 @@ function drawSolution() {
         const endX = coordinates[x + 1][0];
         const endY = coordinates[x + 1][1];
 
-        // Calculate the length of the line
         const dolzinaCrte = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
 
-        // Increment drawing progress
         crta += 10 / dolzinaCrte;
 
-        // Cap the drawing progress to not exceed 1
         if (crta > 1) crta = 1;
 
-        // Calculate intermediate points
         const vmesx = startX + (endX - startX) * crta;
         const vmesy = startY + (endY - startY) * crta;
 
@@ -514,15 +510,13 @@ function drawSolution() {
         // ctx.fillStyle = "rgb(127, 172, 255)";
         // ctx.fillRect(startX - ctx.lineWidth / 2, startY - ctx.lineWidth / 2, ctx.lineWidth, ctx.lineWidth);
 
-        // If the line is finished, move to the next pair of coordinates
         if (crta >= 1) {
-            x++; // Move to the next point
-            crta = 0; // Reset the progress for the next line
+            x++; 
+            crta = 0; 
         }
 
-        requestAnimationFrame(drawSolution); // Continue drawing
+        requestAnimationFrame(drawSolution);
     } else {
-        // End of animation, disable further animation
         animating = false;
     }
 }
