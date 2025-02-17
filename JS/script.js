@@ -456,50 +456,77 @@ function generateMaze() {
 }
 generateMaze();
 
-const coordinates = [
-    [234, 2], [234, 10], [218, 10], [218, 26], [186, 26], [186, 10], [138, 10], [138, 42], [106, 42], [106, 26],
-[90, 26], [90, 42], [74, 42], [74, 74], [58, 74], [58, 58], [42, 58], [42, 90], [58, 90], [58, 106],
-[42, 106], [42, 122], [10, 122], [10, 138], [26, 138], [26, 154], [58, 154], [58, 122], [90, 122],
-[90, 138], [74, 138], [74, 154], [122, 154], [122, 138], [154, 138], [154, 122], [138, 122], [138, 106],
-[106, 106], [106, 90], [122, 90], [122, 74], [138, 74], [138, 58], [154, 58], [154, 90], [170, 90],
-[170, 74], [218, 74], [218, 58], [202, 58], [202, 42], [250, 42], [250, 58], [266, 58], [266, 74],
-[282, 74], [282, 42], [298, 42], [298, 58], [314, 58], [314, 74], [298, 74], [298, 90], [314, 90],
-[314, 122], [330, 122], [330, 186], [378, 186], [378, 170], [394, 170], [394, 202], [410, 202],
-[410, 234], [394, 234], [394, 250], [378, 250], [378, 234], [362, 234], [362, 266], [378, 266],
-[378, 282], [362, 282], [362, 330], [378, 330], [378, 346], [394, 346], [394, 362], [410, 362],
-[410, 346], [426, 346], [426, 394], [442, 394], [442, 410], [346, 410], [346, 474], [282, 474],
-[282, 442], [266, 442], [266, 426], [250, 426], [250, 482]
-];
-
-
+let x = 0; // Start at the first coordinate
+let y = 1; // The second part of the coordinate pair (Y value)
+let crta = 0; // Progress of drawing (from 0 to 1)
+let animating = true; // Control flag for animation
 
 function drawSolution() {
+    const coordinates = [
+        [234*scale, 2*scale], [234*scale, 10*scale], [218*scale, 10*scale], [218*scale, 26*scale], [186*scale, 26*scale], [186*scale, 10*scale], [138*scale, 10*scale], [138*scale, 42*scale], [106*scale, 42*scale], [106*scale, 26*scale],
+        [90*scale, 26*scale], [90*scale, 42*scale], [74*scale, 42*scale], [74*scale, 74*scale], [58*scale, 74*scale], [58*scale, 58*scale], [42*scale, 58*scale], [42*scale, 90*scale], [58*scale, 90*scale], [58*scale, 106*scale],
+        [42*scale, 106*scale], [42*scale, 122*scale], [10*scale, 122*scale], [10*scale, 138*scale], [26*scale, 138*scale], [26*scale, 154*scale], [58*scale, 154*scale], [58*scale, 122*scale], [90*scale, 122*scale],
+        [90*scale, 138*scale], [74*scale, 138*scale], [74*scale, 154*scale], [122*scale, 154*scale], [122*scale, 138*scale], [154*scale, 138*scale], [154*scale, 122*scale], [138*scale, 122*scale], [138*scale, 106*scale],
+        [106*scale, 106*scale], [106*scale, 90*scale], [122*scale, 90*scale], [122*scale, 74*scale], [138*scale, 74*scale], [138*scale, 58*scale], [154*scale, 58*scale], [154*scale, 90*scale], [170*scale, 90*scale],
+        [170*scale, 74*scale], [218*scale, 74*scale], [218*scale, 58*scale], [202*scale, 58*scale], [202*scale, 42*scale], [250*scale, 42*scale], [250*scale, 58*scale], [266*scale, 58*scale], [266*scale, 74*scale],
+        [282*scale, 74*scale], [282*scale, 42*scale], [298*scale, 42*scale], [298*scale, 58*scale], [314*scale, 58*scale], [314*scale, 74*scale], [298*scale, 74*scale], [298*scale, 90*scale], [314*scale, 90*scale],
+        [314*scale, 122*scale], [330*scale, 122*scale], [330*scale, 186*scale], [378*scale, 186*scale], [378*scale, 170*scale], [394*scale, 170*scale], [394*scale, 202*scale], [410*scale, 202*scale],
+        [410*scale, 234*scale], [394*scale, 234*scale], [394*scale, 250*scale], [378*scale, 250*scale], [378*scale, 234*scale], [362*scale, 234*scale], [362*scale, 266*scale], [378*scale, 266*scale],
+        [378*scale, 282*scale], [362*scale, 282*scale], [362*scale, 330*scale], [378*scale, 330*scale], [378*scale, 346*scale], [394*scale, 346*scale], [394*scale, 362*scale], [410*scale, 362*scale],
+        [410*scale, 346*scale], [426*scale, 346*scale], [426*scale, 394*scale], [442*scale, 394*scale], [442*scale, 410*scale], [346*scale, 410*scale], [346*scale, 474*scale], [282*scale, 474*scale],
+        [282*scale, 442*scale], [266*scale, 442*scale], [266*scale, 426*scale], [250*scale, 426*scale], [250*scale, 482*scale]
+    ];
+
     const canvas = document.getElementById("labirint_canvas");
     const ctx = canvas.getContext("2d");
+    ctx.strokeStyle = "#FFFFFF";
+    ctx.lineWidth = 11;
 
-    ctx.strokeStyle = "#000000";
-    ctx.lineWidth = 10;
-    ctx.lineCap = "round";
-    const scale = 784 / 484;
+    // Ensure we don't go out of bounds
+    if (x < coordinates.length - 1) {
+        // Get the current coordinates and the next ones
+        const startX = coordinates[x][0];
+        const startY = coordinates[x][1];
+        const endX = coordinates[x + 1][0];
+        const endY = coordinates[x + 1][1];
 
-    let currentIndex = 0; // začnemo z animacijo risanja poti
-    const interval = setInterval(() => {
-        if (currentIndex > 0) {
-            const previousCoordinates = coordinates[currentIndex - 1];
-            const currentCoordinates = coordinates[currentIndex];
+        // Calculate the length of the line
+        const dolzinaCrte = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
 
-            ctx.beginPath();
-            ctx.moveTo(previousCoordinates[0] * scale, previousCoordinates[1] * scale);
-            ctx.lineTo(currentCoordinates[0] * scale, currentCoordinates[1] * scale);
-            ctx.stroke();
+        // Increment drawing progress
+        crta += 10 / dolzinaCrte;
+
+        // Cap the drawing progress to not exceed 1
+        if (crta > 1) crta = 1;
+
+        // Calculate intermediate points
+        const vmesx = startX + (endX - startX) * crta;
+        const vmesy = startY + (endY - startY) * crta;
+
+        // Draw the line
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(vmesx, vmesy);
+        ctx.stroke();
+        ctx.closePath();
+
+        // Draw a small square at the start point
+        // ctx.fillStyle = "rgb(127, 172, 255)";
+        // ctx.fillRect(startX - ctx.lineWidth / 2, startY - ctx.lineWidth / 2, ctx.lineWidth, ctx.lineWidth);
+
+        // If the line is finished, move to the next pair of coordinates
+        if (crta >= 1) {
+            x++; // Move to the next point
+            crta = 0; // Reset the progress for the next line
         }
-        currentIndex++; // gremo naprej
 
-        if (currentIndex == coordinates.length) {
-            clearInterval(interval);
-        }
-    }, 200) // narišemo vsakih 200 milisekund
+        requestAnimationFrame(drawSolution); // Continue drawing
+    } else {
+        // End of animation, disable further animation
+        animating = false;
+    }
 }
+
 const spaceship = new Image();
 spaceship.src = "../img/ladja.svg";
 
