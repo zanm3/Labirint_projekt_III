@@ -462,7 +462,7 @@ let animating;
 
 // Figurica astronauta
 const spaceman = new Image();
-spaceman.src = "../img/astronaut.png";
+spaceman.src = "img/astronaut.png";
 
 
 spaceman.onload = function() {
