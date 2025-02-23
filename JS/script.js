@@ -457,11 +457,30 @@ function generateMaze() {
 generateMaze();
 
 let x = 0;
-let y = 1;
-let crta = 0;
+let pot = 0;
 let animating;
 
-function drawSolution() {
+// Figurica astronauta
+const spaceman = new Image();
+spaceman.src = "../img/astronaut.png";
+
+
+spaceman.onload = function() {
+    const draw = document.getElementById("click1");
+    const clear = document.getElementById("click2");
+
+    draw.addEventListener("click", function () { 
+        x = 0;
+        pot = 0;
+        astronautAnimation();
+    });
+
+    clear.addEventListener("click", function () { 
+        resetAnimation();
+    });
+};
+
+function astronautAnimation() {
     const coordinates = [
         [234 * scale, 2 * scale], [234 * scale, 10 * scale], [218 * scale, 10 * scale], [218 * scale, 26 * scale], [186 * scale, 26 * scale], [186 * scale, 10 * scale], [138 * scale, 10 * scale], [138 * scale, 42 * scale], [106 * scale, 42 * scale], [106 * scale, 26 * scale],
         [90 * scale, 26 * scale], [90 * scale, 42 * scale], [74 * scale, 42 * scale], [74 * scale, 74 * scale], [58 * scale, 74 * scale], [58 * scale, 58 * scale], [42 * scale, 58 * scale], [42 * scale, 90 * scale], [58 * scale, 90 * scale], [58 * scale, 106 * scale],
@@ -476,73 +495,47 @@ function drawSolution() {
         [410 * scale, 346 * scale], [426 * scale, 346 * scale], [426 * scale, 394 * scale], [442 * scale, 394 * scale], [442 * scale, 410 * scale], [346 * scale, 410 * scale], [346 * scale, 474 * scale], [282 * scale, 474 * scale],
         [282 * scale, 442 * scale], [266 * scale, 442 * scale], [266 * scale, 426 * scale], [250 * scale, 426 * scale], [250 * scale, 482 * scale]
     ];
+
     animating = true;
     const canvas = document.getElementById("labirint_canvas");
     const ctx = canvas.getContext("2d");
-    ctx.strokeStyle = "#000000";
-    ctx.lineWidth = 11;
-    ctx.lineCap = "round";
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    generateMaze();
 
     if (x < coordinates.length - 1) {
-
         const startX = coordinates[x][0];
         const startY = coordinates[x][1];
         const endX = coordinates[x + 1][0];
         const endY = coordinates[x + 1][1];
 
-        const dolzinaCrte = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
+        const dolzinaPoti = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
+        pot += 2 / dolzinaPoti;
 
-        crta += 1 / dolzinaCrte;
+        if (pot > 1) pot = 1;
 
-        if (crta > 1) crta = 1;
+        const vmesx = startX + (endX - startX) * pot;
+        const vmesy = startY + (endY - startY) * pot;
 
-        const vmesx = startX + (endX - startX) * crta;
-        const vmesy = startY + (endY - startY) * crta;
+        ctx.drawImage(spaceman, vmesx - 13, vmesy - 13, 26, 26);
 
-        // Draw the line
-        ctx.beginPath();
-        ctx.moveTo(startX, startY);
-        ctx.lineTo(vmesx, vmesy);
-        ctx.stroke();
-        ctx.closePath();
-
-        // Draw a small square at the start point
-        // ctx.fillStyle = "rgb(255, 255, 255)";
-        // ctx.fillRect(startX - ctx.lineWidth / 2, startY - ctx.lineWidth / 2, ctx.lineWidth, ctx.lineWidth);
-
-        if (crta >= 1) {
+        if (pot >= 1) {
             x++;
-            crta = 0;
+            pot = 0;
         }
 
-        requestAnimationFrame(drawSolution);
+        requestAnimationFrame(astronautAnimation);
     } else {
         animating = false;
     }
 }
 
-const spaceman = new Image();
-spaceman.src = "../img/astronaut.png";
+function resetAnimation() {
+    const canvas = document.getElementById("labirint_canvas");
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height); 
 
-function spaceMan() {
-    ctx.drawImage(spaceman, 226*scale, 2*scale, 26, 26);
-}
-spaceman.onload = function () {
-    spaceMan();
-}
-const draw = document.getElementById("click1");
-const clear = document.getElementById("click2");
-
-draw.addEventListener("click", function () { // ko kliknemo gumb, se sproži funkcija drawSolution
-    drawSolution();
-});
-
-clear.addEventListener("click", function () { // ko kliknemo gumb, se sproži funkcija drawSolution
-    clearSolution();
-});
-function clearSolution() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+    x = 0;  
+    pot = 0;
     generateMaze();
-    drawSolution();
-    spaceman.onload();
 }
