@@ -1,11 +1,10 @@
 # Projekt Labirint
-
+ Razvijalec: Žan Markuža, 4. RB
 ## Opis
- Projekt Galaxy Odyssey je labirint, ki s pomočjo točk pravilne poti izriše črto in reši labirint.
+ Projekt Galaxy Odyssey je 3. projektna naloga pri predmetu NSAp. Projektna naloga na temu vesolja, ki vsebuje labirint, skozi katerega potuje astronaut.
 
- Z gumbom "draw" izrišemo črto, in z gumbom "clear" izbrišemo oz. ponastavimo labirint. 
+ Z gumbom "GO!" poženemo figurico, katera gre skozi labirint in z gumbom "Rest" ponastavimo figurico na začetni položaj. 
 ## Programski jeziki
 - HTML
 - CSS
 - JS
-## Delovanje
