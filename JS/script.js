@@ -463,24 +463,26 @@ let animating;
 // Figurica astronauta
 const spaceman = new Image();
 spaceman.src = "img/astronaut.png";
+let isClicked = false;
 
 
-spaceman.onload = function() {
-    const draw = document.getElementById("click1");
-    const clear = document.getElementById("click2");
+    const go = document.getElementById("click1");
+    const reset = document.getElementById("click2");
 
-    draw.addEventListener("click", function () { 
-        x = 0;
-        pot = 0;
-        astronautAnimation();
+    go.addEventListener("click", function () {
+        if(!animating){
+            isClicked = true; 
+            astronautAnimation();
+        }
     });
 
-    clear.addEventListener("click", function () { 
+    reset.addEventListener("click", function () { 
         resetAnimation();
     });
-};
 
 function astronautAnimation() {
+    if(isClicked == false)
+        return;
     const coordinates = [
         [234 * scale, 2 * scale], [234 * scale, 10 * scale], [218 * scale, 10 * scale], [218 * scale, 26 * scale], [186 * scale, 26 * scale], [186 * scale, 10 * scale], [138 * scale, 10 * scale], [138 * scale, 42 * scale], [106 * scale, 42 * scale], [106 * scale, 26 * scale],
         [90 * scale, 26 * scale], [90 * scale, 42 * scale], [74 * scale, 42 * scale], [74 * scale, 74 * scale], [58 * scale, 74 * scale], [58 * scale, 58 * scale], [42 * scale, 58 * scale], [42 * scale, 90 * scale], [58 * scale, 90 * scale], [58 * scale, 106 * scale],
@@ -527,14 +529,18 @@ function astronautAnimation() {
         requestAnimationFrame(astronautAnimation);
     } else {
         animating = false;
+        isClicked = false;
     }
+
 }
 
 function resetAnimation() {
     const canvas = document.getElementById("labirint_canvas");
     const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height); 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    generateMaze(); 
     x = 0;  
     pot = 0;
-    generateMaze();
+    isClicked = false;
+    animating = false;
 }
