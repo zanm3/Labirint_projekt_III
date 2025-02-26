@@ -80,24 +80,6 @@ button {
     margin-left: -100px;
 }
 
-#logo {
-    background: url("../img/solution.png") no-repeat;
-    width: 50px;
-    height: 50px;
-    position: relative;
-    top: 25%;
-    left: 10%;
-    cursor: pointer;
-}
-
-#gumba {
-    display: flex;
-    width: 100%;
-    position: relative;
-    top: 60%;
-    left: 20%;
-}
-
 p {
     font-family: 'Times New Roman', Times, serif;
     text-align: justify;
