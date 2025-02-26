@@ -499,6 +499,7 @@ function astronautAnimation() {
     animating = true;
     const canvas = document.getElementById("labirint_canvas");
     const ctx = canvas.getContext("2d");
+    const hitrost = document.querySelector('input[type="range"]');
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     generateMaze();
@@ -510,7 +511,7 @@ function astronautAnimation() {
         const endY = coordinates[x + 1][1];
 
         const dolzinaPoti = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
-        pot += 2 / dolzinaPoti;
+        pot += hitrost.value / dolzinaPoti;
 
         if (pot > 1) pot = 1;
 
@@ -523,7 +524,6 @@ function astronautAnimation() {
             x++;
             pot = 0;
         }
-
         requestAnimationFrame(astronautAnimation);
     } else {
         animating = false;
@@ -534,7 +534,6 @@ function resetAnimation() {
     const canvas = document.getElementById("labirint_canvas");
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height); 
-
     x = 0;  
     pot = 0;
     generateMaze();
