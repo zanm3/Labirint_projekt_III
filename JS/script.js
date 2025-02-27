@@ -459,6 +459,7 @@ generateMaze();
 let x = 0;
 let pot = 0;
 let animating;
+let trail = [];
 
 // Figurica astronauta
 const spaceman = new Image();
@@ -472,7 +473,9 @@ let isClicked = false;
     go.addEventListener("click", function () {
         if(!animating){
             isClicked = true; 
+            trail = [];
             astronautAnimation();
+            drawTrail();
         }
     });
 
@@ -506,6 +509,17 @@ function astronautAnimation() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     generateMaze();
 
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 7;
+    ctx.lineCap = "round";
+
+    for (let i = 1; i < trail.length; i++) {
+        ctx.moveTo(trail[i - 1][0], trail[i - 1][1]);
+        ctx.lineTo(trail[i][0], trail[i][1]);
+    }
+    ctx.stroke();
+
     if (x < coordinates.length - 1) {
         const startX = coordinates[x][0];
         const startY = coordinates[x][1];
@@ -519,6 +533,8 @@ function astronautAnimation() {
 
         const vmesx = startX + (endX - startX) * pot;
         const vmesy = startY + (endY - startY) * pot;
+
+        trail.push([vmesx, vmesy]);
 
         ctx.drawImage(spaceman, vmesx - 13, vmesy - 13, 26, 26);
 
@@ -543,4 +559,5 @@ function resetAnimation() {
     pot = 0;
     isClicked = false;
     animating = false;
+    trail = [];
 }
