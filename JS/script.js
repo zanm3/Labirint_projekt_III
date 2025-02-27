@@ -473,7 +473,6 @@ let isClicked = false;
     go.addEventListener("click", function () {
         if(!animating){
             isClicked = true; 
-            trail = [];
             astronautAnimation();
             drawTrail();
         }
