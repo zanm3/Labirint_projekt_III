@@ -555,7 +555,7 @@ const ladja = document.getElementById("ladja");
 let movingX = 0;
 
 function spaceshipAnimation() {
-    const hitrostLadje = 3;  // Speed of the spaceship
+    const hitrostLadje = 5;  // Speed of the spaceship
 
     if (!spaceshipIsMoving) {
         return;
