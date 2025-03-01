@@ -474,12 +474,11 @@ let isClicked = false;
         if(!animating){
             isClicked = true; 
             astronautAnimation();
-            drawTrail();
         }
     });
 
     reset.addEventListener("click", function () { 
-        resetAnimation();
+        resetEverything();
     });
 
 function astronautAnimation() {
@@ -544,19 +543,29 @@ function astronautAnimation() {
         requestAnimationFrame(astronautAnimation);
     } else {
         animating = false;
-        isClicked = false;
+        spaceshipAnimation();
     }
-
 }
 
-function resetAnimation() {
-    const canvas = document.getElementById("labirint_canvas");
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    generateMaze(); 
-    x = 0;  
-    pot = 0;
-    isClicked = false;
-    animating = false;
-    trail = [];
+function resetEverything() {
+    window.location.reload();
+}
+let spaceshipIsMoving = true;
+const ladja = document.getElementById("ladja");
+let movingX = 0;
+
+function spaceshipAnimation() {
+    const hitrostLadje = 3;  // Speed of the spaceship
+
+    if (!spaceshipIsMoving) {
+        return;
+    } else {
+        movingX = movingX + hitrostLadje;
+        ladja.style.transform = `translateX(${movingX}px)`;
+    }
+    if (movingX < window.innerWidth) {
+        requestAnimationFrame(spaceshipAnimation);
+    } else {
+        spaceshipIsMoving = false;
+    }
 }

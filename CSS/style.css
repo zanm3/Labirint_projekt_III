@@ -96,7 +96,7 @@ p {
     cursor: pointer;
 }
 
-#speedSlider {
+#sliderContainer {
     width: 100%;
     height: 20px;
     box-sizing: border-box;
@@ -151,6 +151,7 @@ input[type="range"]:focus {
     grid-row: 2;
     box-sizing: border-box;
     width: max-content;
+    height: max-content;
     position: relative;
     top: 93%;
     left: 48%;
